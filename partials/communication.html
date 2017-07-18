@@ -1,0 +1,85 @@
+<div class="clearfix">
+
+    <ul class="tab-links">
+        
+        <li><a href ng-click="currentScreen='publicPage'" ng-init="currentScreen='publicPage'" ng-class="{'active':currentScreen=='publicPage'}">{{_labels.publicPage}}</a></li>
+        <li><a href ng-click="currentScreen='publications'" ng-class="{'active':currentScreen=='publications'}">{{_labels.publication}}s</a></li>
+
+    </ul>
+</div>
+<div ng-show='currentScreen=="publications"'>
+    <p ng-if="!campus.articles.length" class="label label-warning" style="width:100%;padding:10px;display:inline-block">{{_labels.noArticleToDisplay}}</p>
+    <input ng-if="campus.articles.length" type="text" class="searchField pull-right" ng-model="searchInput" placeholder="{{_labels.searchArticle}}" ng-change="getUniversityArticles();"> 
+    <div class="clearfix separator"></div>
+    <div>
+        <section class="fiche" ng-repeat="article in campus.articles track by $index | orderBy:date  | limitTo:maxArticles">
+            <div class="pull-right pointerOn" ng-click="switchUniversityArticle(article)">
+                <div class="label label-success" ng-if="article.active">{{_labels.activeModule}}</div>
+                <div class="label label-danger" ng-if="!article.active">{{_labels.deactiveModule}}</div>
+            </div>
+            <div ng-include src="'partials/blog/articleOverview.html'">    
+
+            </div>
+
+        </section>
+    </div>
+</div>
+        
+<div ng-show='currentScreen=="publicPage"'> 
+    <section>        
+        <label class="blockLabel">
+            <input type="checkBox" ng-model="campus.settings.enablePublicPage"/>
+            <span>{{_labels.enablePublicPage}}</span>
+            <a href="{{_urls.root}}campus/?u={{campus.name}}">{{_urls.root}}campus/?u={{campus.name}}</a>
+        </label>
+        
+        <div ng-show="campus.settings.enablePublicPage" style="margin: 10px;">
+            
+            <label class="blockLabel">
+                <input type="checkBox" ng-model="campus.settings.displayPublicDescription"/>
+                <span>{{_labels.displayPublicDescription}}</span>
+            </label>
+
+            <label class="blockLabel hide">
+                <input type="checkBox" ng-model="campus.settings.displayContactInformations"/>
+                <span>{{_labels.displayContactInformations}}
+            </label>
+
+            <label class="blockLabel">
+                <input type="checkBox" ng-model="campus.settings.displayHighlightedProjects"/>
+                <span>{{_labels.displayHighlightedProjects}}</span>
+
+            </label>
+
+            <label class="blockLabel hide">
+                <input type="checkBox" ng-model="campus.settings.displayProjectBrowser"/>
+                <span>{{_labels.displayProjectBrowser}}</span>
+
+            </label>
+
+            <label class="blockLabel">
+                <input type="checkBox" ng-model="campus.settings.displayHighlightedPublications"/>
+                <span>{{_labels.displayHighlightedPublications}}</span>
+            </label>
+
+
+            <label class="blockLabel hide">
+                <input type="checkBox" ng-model="campus.settings.displayPublicationBrowser"/>
+                <span>{{_labels.displayPublicationBrowser}}</span>
+            </label>
+            
+            <label class="blockLabel">
+                <input type="checkBox" ng-model="campus.settings.displayTutors"/>
+                <span>{{_labels.displayTutors}}</span>
+            </label>
+            
+            <label class="blockLabel">
+                <input type="checkBox" ng-model="campus.settings.displayCourses"/>
+                <span>{{_labels.displayCourses}}</span>
+            </label>
+        </div>
+        
+    </section>
+    
+    <button ng-click="setUniversitySettings();">{{_labels.updateBtn}}</button>
+</div>

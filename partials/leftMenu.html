@@ -1,0 +1,64 @@
+<li ng-class="{'active':_getCurrentSection('',false,2)=='infos'}">
+	<a href ng-click="_setLocation('admin/infos');" class="no-ajaxify">
+	   <span class="fa fa-gear" style="width:13px; margin-right:2px"></span> 
+	   <span class="lbl">{{_labels.manageCampusInfo}}</span>
+	</a>
+</li>
+<li class="hide" ng-class="{'active':_getCurrentSection('',false,2)=='communication'}">
+	<a href ng-click="_setLocation('admin/communication');">
+	   <span class="fa fa-bullhorn" style="width:13px; margin-right:2px"></span> 
+	   <span class="lbl">{{_labels.manageCampusCommunication}}</span>
+	</a>
+</li>
+<li ng-class="{'active':_getCurrentSection('',false,2)=='courses'}">
+	<a href ng-click="_setLocation('admin/courses');">
+	   <span class="fa fa-folder" style="width:13px; margin-right:2px"></span> 
+	   <span class="lbl">{{_labels.manageCampusCourses}}</span>
+	</a>
+</li>
+<li ng-class="{'active':_getCurrentSection('',false,2)=='users'}">
+	<a href ng-click="_setLocation('admin/users');">
+	   <span class="fa fa-users" style="width:13px; margin-right:2px"></span> 
+	   <span class="lbl">{{_labels.manageCampusUsers}}</span>
+	</a>
+</li>
+<li ng-class="{'active':_getCurrentSection('',false,2)=='companies'}">
+	<a href ng-click="_setLocation('admin/companies');">
+	   <span class="fa fa-briefcase" style="width:13px; margin-right:2px"></span> 
+	   <span class="lbl">{{_labels.manageCampusCompanies}}</span>
+	</a>
+</li>
+<li ng-class="{'active':_getCurrentSection('',false,2)=='projects'}">
+	<a href ng-click="_setLocation('admin/projects');">
+	   <span class="fa fa-cubes" style="width:13px; margin-right:2px"></span> 
+	   <span class="lbl">{{_labels.manageCampusProjects}}</span>
+	</a>
+	
+</li>
+<li class="hide" ng-class="{'active':_getCurrentSection('',false,2)=='offers'}">
+	<a href ng-click="_setLocation('admin/offers');">
+	   <span class="fa fa-archive" style="width:13px; margin-right:2px"></span> 
+	   <span class="lbl">{{_labels.manageCampusOffers}}</span>
+	</a>
+</li>
+<li ng-class="{'active':_getCurrentSection('',false,2)=='skills'}">
+	<a href ng-click="_setLocation('admin/skills');">
+	   <span class="fa fa-star" style="width:13px; margin-right:2px"></span> 
+	   <span class="lbl">{{_labels.manageCampusSkills}}</span>
+	</a>
+	
+</li>
+<li ng-class="{'active':_getCurrentSection('',false,2)=='matching'}">
+	<a href ng-click="_setLocation('matching');">
+	   <span class="fa fa-bolt" style="width:13px; margin-right:2px"></span> 
+	   <span class="lbl">{{_labels.matching}}</span>
+	</a>
+	
+</li>
+<li class="hide" ng-class="{'active':_getCurrentSection('',false,2)=='events'}">
+	<a href ng-click="_setLocation('admin/events');">
+	   <span class="fa fa-calendar" style="width:13px; margin-right:2px"></span> 
+	   <span class="lbl">{{_labels.manageCampusEvents}}</span>
+	</a>
+</li>	
+

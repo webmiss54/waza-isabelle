@@ -1,0 +1,96 @@
+<div ng-controller="UnivCompanyOffers" ng-init="currentSection='listOffers'">
+
+	<div style="margin-top: -30px;">
+		<button class="pull-right" ng-click="setSection('newOffer')" ng-hide="currentSection=='newOffer'">{{_labels.addOfferBtn}}</button>
+		<button class="pull-right" ng-click="refreshOffers();" ng-show="currentSection=='listOffers'">{{_labels.refreshOffersBtn}}</button>
+		<button class="pull-right" ng-click="setSection('listOffers')" ng-show="currentSection=='newOffer'">{{_labels.offersListView}}</button>
+    </div>
+	<div style="margin-top: 10px;" class="clearfix"></div>
+    <div ng-show="currentSection!='newOffer'">
+        <div class="col-md-2">
+            <p class="pointerOn" ng-click="setSection('listOffers')" ng-class="{'highlightColor':currentSection=='listOffers'}">{{_labels.offersListView}}</p>
+            <p class="pointerOn" ng-click="setSection('listKeywords')" ng-class="{'highlightColor':currentSection=='listKeywords'}">{{_labels.keywordsCloudView}}</p>
+        </div>
+        <div class="col-md-9" style="border-left:solid 1px lightgray;text-align: justify;overflow-y: auto;height:400px;">
+            <div ng-show="currentSection=='listKeywords'" >
+                <div id="keywords" style="width: 550px; height: 400px; position: relative;"></div>
+            </div>
+
+            <div ng-show="currentSection=='listOffers'">
+                <div class="well" style="margin:5px;" ng-repeat="offer in offers.elements | orderBy:'-id'">
+
+					<div class="pull-right ">
+						<span><i class="fa fa-calendar"></i> {{offer.date | date:'dd/MM'}}</span>
+						<i class="fa fa-download pointerOn" style="margin: 2px;" ng-click="downloadOffer(offer)" title="{{_labels.downloadBtn}}"></i>
+						<i class="fa fa-eye hide" style="margin: 2px;" title="{{_labels.seeDetailsBtn}}"></i>
+						<i class="fa fa-star-o hide" style="margin: 2px;" title="{{_labels.setStarredBtn}}"></i>
+					</div>
+					<h5>{{offer.title}}</h5>
+
+					<p>{{_labels.offerTypes[offer.type]}} | {{offer.source}}</p>
+				</div>
+			</div>
+		</div>
+      
+    </div>
+    <div ng-show="currentSection=='newOffer'" style="padding-right: 15px;height:450px;overflow-y:auto;overflow-x:hidden;">
+        <div class="form-group standardForm">
+            <div class="form-group standardForm">
+                <h6 >{{_labels.offerTitle}}:</h6>
+                <input type="text" ng-model="newOffer.title" required>
+                <div class="separator"></div>
+            </div>
+            
+            <div class="form-group standardForm">
+                <h6 >{{_labels.offerDescription}}:</h6>
+                <textarea ng-model='newOffer.description' required></textarea>
+                <div class="separator"></div>
+            </div>
+            <div class="form-group standardForm">
+                <h6 >{{_labels.offerSkills}}:</h6>
+                <textarea ng-model='newOffer.skills'></textarea>
+                <div class="separator"></div>
+            </div>
+            <div>
+                <div class="form-group standardForm col-md-5">
+                    <h6 >{{_labels.offerType}}:</h6>
+                    <select ng-model="newOffer.type">
+                        <option ng-repeat="(key,val) in _labels.offerTypes" value="{{key}}">{{val}}</option>
+                    </select>
+                    <div class="separator"></div>
+                </div>
+                
+                <div class="form-group standardForm col-md-5">
+                    <h6 >{{_labels.offerStudyLevel}}:</h6>
+                    <input ng-model='newOffer.levelStudy' required>
+                    <div class="separator"></div>
+                </div>
+
+            </div>
+            
+            <div>
+                <div class="form-group standardForm  col-md-5">
+                    <h6 >{{_labels.offerDuration}}:</h6>
+                    <input ng-model='newOffer.duration' placeholder="3 mois / 6 mois / 2-4 mois" required>
+                    <div class="separator"></div>
+                </div>
+                <div class="form-group standardForm col-md-5">
+                    <h6 >{{_labels.offerLocation}}:</h6>
+                    <input ng-model='newOffer.location' required>
+                    <div class="separator"></div>
+                </div>
+            </div>
+            
+            
+            <div class="form-group standardForm">
+                <h6 >{{_labels.offerContact}}:</h6>
+                <input type="text" ng-model="newOffer.contactEmail">
+                <div class="separator"></div>
+            </div>
+            
+            
+
+        </div>
+        <button class="pull-right" ng-click="addOffer()">{{_labels.addBtn}}</button>
+    </div>
+</div>

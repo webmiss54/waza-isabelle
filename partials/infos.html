@@ -1,0 +1,184 @@
+<div class="clearfix">
+
+    <div>
+        <ul class="tab-links">
+                <li><a href ng-click="currentScreen='infos'" ng-init="currentScreen='infos'" ng-class="{'active':currentScreen=='infos'}">{{_labels.manageCampusInfo}}</a></li>
+                <li><a href ng-click="currentScreen='publicPage'" ng-class="{'active':currentScreen=='publicPage'}">{{_labels.publicPage}}</a></li>
+                <li><a href ng-click="currentScreen='publications'" ng-class="{'active':currentScreen=='publications'}">{{_labels.publicPagePublication}}</a></li>
+
+                <li class="pull-right"  ng-if="currentScreen=='infos'">
+                    <button  ng-if="editMode" ng-click="updateCampus();">{{_labels.updateProjectSettingsBtn}}</button>
+                    <button  ng-if="editMode" ng-click="_setLocation('admin','infos')">{{_labels.cancelBtn}}</button>
+                    <button  ng-if="!editMode" ng-click="switchMode();" style="margin-right:220px;">{{_labels.editCampusBtn}}</button>
+                </li>
+                
+        </ul> 
+    </div>
+</div>
+<div>
+    
+    
+    <div ng-show='currentScreen=="publications"'>
+        <p ng-if="!campus.articles.length" class="label label-warning" style="width:100%;padding:10px;display:inline-block">{{_labels.noArticleToDisplay}}</p>
+        <input ng-if="campus.articles.length" type="text" class="searchField pull-right" ng-model="searchInput" placeholder="{{_labels.searchArticle}}" ng-change="getUniversityArticles();"> 
+        <div class="clearfix separator"></div>
+        <div>
+            <section class="fiche" ng-repeat="article in campus.articles track by $index | orderBy:date  | limitTo:maxArticles">
+                <div class="pull-right pointerOn" ng-click="switchUniversityArticle(article)">
+                    <div class="label label-success" ng-if="article.active">{{_labels.activeModule}}</div>
+                    <div class="label label-danger" ng-if="!article.active">{{_labels.deactiveModule}}</div>
+                </div>
+                <div ng-include src="'partials/blog/articleOverview.html'">    
+
+                </div>
+
+            </section>
+        </div>
+    </div>
+
+    <div ng-show='currentScreen=="publicPage"'> 
+        <section class="publicPageOptions">        
+            <label class="blockLabel">
+                
+                <input type="checkBox" ng-model="campus.settings.enablePublicPage"/>
+                <span>{{_labels.enablePublicPage}}</span>
+                <a href="{{_urls.root}}campus/?u={{campus.name}}">{{_urls.root}}campus/?u={{campus.name}}</a>
+            </label>
+            
+            <label ng-show="campus.settings.enablePublicPage" style="margin-top:10px;margin-left:10px;">{{_labels.sectionOfPublicPages}}</label>
+
+            <div ng-show="campus.settings.enablePublicPage"  style="margin-left: 15px;">
+
+                
+                <label class="blockLabel">
+                    <input type="checkBox" ng-model="campus.settings.displayPublicDescription"/>
+                    <span>{{_labels.displayPublicDescription}}</span>
+                </label>
+
+                <label class="blockLabel hide">
+                    <input type="checkBox" ng-model="campus.settings.displayContactInformations"/>
+                    <span>{{_labels.displayContactInformations}}
+                </label>
+
+                <label class="blockLabel">
+                    <input type="checkBox" ng-model="campus.settings.displayHighlightedProjects"/>
+                    <span>{{_labels.displayHighlightedProjects}}</span>
+
+                </label>
+
+                <label class="blockLabel hide">
+                    <input type="checkBox" ng-model="campus.settings.displayProjectBrowser"/>
+                    <span>{{_labels.displayProjectBrowser}}</span>
+
+                </label>
+
+                <label class="blockLabel">
+                    <input type="checkBox" ng-model="campus.settings.displayHighlightedPublications"/>
+                    <span>{{_labels.displayHighlightedPublications}}</span>
+                </label>
+
+
+                <label class="blockLabel hide">
+                    <input type="checkBox" ng-model="campus.settings.displayPublicationBrowser"/>
+                    <span>{{_labels.displayPublicationBrowser}}</span>
+                </label>
+
+                <label class="blockLabel">
+                    <input type="checkBox" ng-model="campus.settings.displayTutors"/>
+                    <span>{{_labels.displayTutors}}</span>
+                </label>
+
+                <label class="blockLabel">
+                    <input type="checkBox" ng-model="campus.settings.displayCourses"/>
+                    <span>{{_labels.displayCourses}}</span>
+                </label>
+            </div>
+
+        </section>
+
+        <button ng-click="setUniversitySettings();">{{_labels.updateBtn}}</button>
+    </div>
+    
+    <div ng-show='currentScreen=="infos"'>
+    
+        <section class="form-fieldsInitial " ng-if="editMode" >
+
+            <div class="row">
+                <div style="display: inline-block; width: 100px;text-align: center;">
+
+                    <img width="80" ng-src="{{campus.thumbnailUrl ?campus.thumbnailUrl:_urls.defaultUniv}}" style="margin-bottom: 3px;"/>
+                    <button style="    width: 78px;    padding: 0;    margin: 0;" ng-click="browseCampusProfile()">{{_labels.selectBtn}}</button>
+                </div>
+                <div style="display: inline-block; vertical-align: top;width: 90%">
+                    <label>{{_labels.title}}</label>
+                    <input type="text"  ng-model="campus.fullName">
+
+                    <label>{{_labels.description}}</label>
+                    <textarea ng-model="campus.description"></textarea>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <label>{{_labels.website}}</label>
+                <input type="text"  ng-model="campus.website">
+
+                <label>{{_labels.location}}</label>
+                <input type="text"  ng-model="campus.fullLocation">
+
+                <label>{{_labels.contactPhone}}</label>
+                <input type="text"  ng-model="campus.mainPhone">
+
+                <label>{{_labels.contactEmail}}</label>
+                <input type="text"  ng-model="campus.mainMail">
+            </div>
+        </section>
+
+        <div class="ajouters colMd-NoPadding" ng-if="!editMode">
+            <section style="overflow: hidden;position: absolute;    right: 20px;    top: -20px;    padding: 5px;    min-height: auto;">
+                <img ng-src="{{campus.thumbnailUrl}}" style="max-height: 175px; max-width:200px;" alt="" ng-show="campus.thumbnailUrl">
+                <img ng-src="{{_urls.defaultUniv}}" style="max-height: 175px; max-width:200px;" alt="" ng-show="!campus.thumbnailUrl">
+
+            </section>
+            <section class="sameHeight">
+
+                <div style="text-align: justify;    margin-right: 220px;">
+                    <h4>{{campus.fullName}}</h4>
+                    <p ng-if="campus.description">{{campus.description}}</p>
+                    <p ng-if="!campus.description">{{_labels.noDescription}}</p>
+
+
+                    <div class="separator clearfix"></div>
+                    <h5>
+                        <i class="fa fa-map-marker"></i> 
+                        <span ng-if="campus.fullLocation">{{campus.fullLocation}}</span>
+                        <span ng-if="!campus.fullLocation">{{_labels.undefined}}</span>
+                    </h5>
+
+                    <h5>
+                        <i class="fa fa-globe"></i> 
+                        <a ng-if="campus.website" href="{{campus.website}}">{{campus.website}}</a>
+                        <span ng-if="!campus.website" >{{_labels.undefined}}</span>
+                    </h5>
+
+                    <h5>
+                        <i class="fa fa-phone"></i> 
+                        <span ng-if="campus.mainPhone">{{campus.mainPhone}}</span>
+                        <span ng-if="!campus.mainPhone">{{_labels.undefined}}</span>
+                    </h5>
+
+                    <h5>
+                        <i class="fa fa-envelope"></i> 
+                        <span ng-if="!campus.mainMail" >{{_labels.undefined}}</span>
+                        <a ng-if="campus.mainMail" href="mailto:{{campus.mainMail}}">{{campus.mainMail}}</a>
+                    </h5>
+
+                </div>
+
+
+            </section>
+        </div>
+    </div>
+<div class="clearfix"></div>
+<div>
+</div>

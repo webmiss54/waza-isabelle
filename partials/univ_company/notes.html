@@ -1,0 +1,41 @@
+<div ng-controller="AdminCompaniesNotesCtrl">
+    <div style="height: 290px;  margin: auto; margin-bottom:20px;overflow-y: auto;">
+        <section class="alert alert-warning" ng-if="!notes.elements">{{_labels.noNoteToDisplay}}</section>
+         <section ng-repeat="comment in notes.elements" style="margin: 10px;" class="well border-bottom " ng-class="{'otherUser': comment.user.id!=_getSession().user}">
+             
+             <div >
+				<p style="border-bottom:solid 1px">
+					<strong >{{_formatUser(comment.user).shortName}}</strong> 
+					<span style="font-family: SSPRegular;">{{comment.date}}</span>
+				</p>
+				<p style="text-transform: initial;font-family: SSPRegular;">{{comment.content}}</p>
+             </div>
+             <div class="clearfix"></div>
+         </section>	  
+     </div>
+     <div class="well">
+		<label>{{_labels.addNoteTitle}}</label>
+         <div style="border:solid 1px lightgray; overflow:hidden;height:80px;margin-bottom:5px;">
+             <textarea style="width: 100%; padding:5px;height:80px; border:none !important;" ng-model="newNote.content" placeholder="{{_labels.notePlaceholder}}"></textarea>
+
+         </div> 
+		 <div class="pull-right">
+             <button type="submit" ng-click="addNote(newNote)">{{_labels.addUserBtn}}</button>
+         </div>
+		 <div style="font-size:0.9em;">
+			<span><i class="fa fa-eye"></i>{{_labels.visibility}}</span>
+			<select ng-model="newNote.visibility" style="display:inline-block;">
+				<option value="0" title="{{_labels.publicFieldTooltip}}">{{_labels.articleVisibilityList.public}}</option>
+				<option value="1" title="{{_labels.myselfFieldTooltip}}">{{_labels.myself}}</option>
+				<option value="2" title="{{_labels.myCampusFieldTooltip}}">{{_labels.isMainCampus}}</option>
+			</select>
+			<span>
+				<span ng-if="newNote.visibility==0">{{_labels.publicFieldTooltip}}</span>
+				<span ng-if="newNote.visibility==1">{{_labels.myselfFieldTooltip}}</span>
+				<span ng-if="newNote.visibility==2">{{_labels.myCampusFieldTooltip}}</span>
+			</span>
+		</div>
+         <div class="clearfix"></div>
+
+     </div>
+ </div>

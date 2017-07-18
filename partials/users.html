@@ -1,0 +1,107 @@
+<div class="clearfix">
+
+    <ul class="tab-links">
+        
+        <li><a href ng-click="currentScreen='admins'" ng-class="{'active':currentScreen=='admins'}">{{_labels.adminPlan}}</a></li>
+        <li><a href ng-click="currentScreen='students'" ng-class="{'active':currentScreen=='students'}">{{_labels.studentPlan}}</a></li>
+        <li><a href ng-click="currentScreen='tutors'" ng-class="{'active':currentScreen=='tutors'}">{{_labels.tutorPlan}}s</a></li>
+        <li><a href ng-click="currentScreen='alumni'" ng-class="{'active':currentScreen=='alumni'}">{{_labels.alumni}}</a></li>
+        
+        <li class="pull-right">
+            <button ng-click="openModalNewStudent();" ng-show="currentScreen=='students'">{{_labels.memberAddBtn}}</button>
+            <button ng-click="openModalNewManager();" ng-show="currentScreen=='tutors'">{{_labels.memberAddBtn}}</button>
+            <button ng-click="openModalNewAdmin();" ng-show="currentScreen=='admins'">{{_labels.memberAddBtn}}</button>
+            <button ng-click="openModalNewAlumni();" ng-show="currentScreen=='alumni'">{{_labels.memberAddBtn}}</button>
+            
+            <button class="fa fa-refresh" ng-click="refresh();"></button>
+            
+        </li>
+        
+
+    </ul>
+</div>
+
+<div id="membersList">
+    <div class="universityUsers">
+        <div>
+            <input type="text" class="searchField" ng-model="searchInput" placeholder="{{_labels.searchUser}}">
+
+            <div>
+                <section class="member pointerOn" ng-repeat="student in currentList()| filter:searchInput" ng-click="showUserDetails(student)" ng-class="{'active':currentUser==student}" style="padding-top: 10px;">
+                        <img ng-src="{{_formatUser(student).avatar}}" alt="" style="margin-bottom:5px;">
+                        <p>{{_formatUser(student).shortName}}</p>
+                        
+                </section>
+            </div>	
+        </div>
+    </div>
+</div>
+
+
+<div id="newStudentModal" class="newUsrModal modalbg hide" >
+        <div class="dialog" style='width: 400px;height:170px;'>
+                <a ng-click='closeModalNewStudent();' title="Close" class="close"></a>
+                <h4>{{_labels.newStudentTitle}}</h4>
+                <input class="name" type="text" placeholder="{{_labels.emailStudent}}" ng-model="inputEmail" ng-change='onMailChange(inputEmail)' list="mailList">
+                <datalist id='mailList'><option ng-repeat='option in usersList'>{{option.email}}</option></datalist>
+                <input class="name" type="text" placeholder="{{_labels.firstNameStudent}}" ng-model="inputFirstName">
+                <input class="name" type="text" placeholder="{{_labels.lastNameStudent}}" ng-model="inputLastName">
+
+                <div class='separator'></div>
+                <button class="pull-right" type="submit" ng-click="newStudent(inputEmail,inputFirstName,inputLastName)">{{_labels.confirmNewStudent}}</button>
+
+        </div>
+</div>
+
+
+
+<div id="newManagerModal" class="newUsrModal modalbg hide" >
+        <div class="dialog" style='width: 400px;height:200px;'>
+                <a ng-click='closeModalNewManager();' title="Close" class="close"></a>
+                <h4>{{_labels.newManagerTitle}}</h4>
+
+                <input class="name" type="text" placeholder="{{_labels.emailManager}}" ng-model="inputEmail" ng-change='onMailChange(inputEmail)'list="mailList">
+                <datalist id='mailList'><option ng-repeat='option in usersList'>{{option.email}}</option></datalist>
+                <input class="name" type="text" placeholder="{{_labels.firstNameManager}}" ng-model="inputFirstName">
+                <input class="name" type="text" placeholder="{{_labels.lastNameManager}}" ng-model="inputLastName">
+
+                <input class="name" type="text" placeholder="{{_labels.positionManager}}" ng-model="inputPosition">
+                <div class='separator'></div>
+                <button class="pull-right" type="submit" ng-click="newManager(inputEmail,inputFirstName,inputLastName,inputPosition)">{{_labels.confirmNewStudent}}</button>
+
+        </div>
+</div>
+
+
+<div id="newAdminModal" class="newUsrModal modalbg hide" >
+        <div class="dialog" style='width: 400px;height:170px;'>
+                <a ng-click='closeModalNewAdmin();' title="Close" class="close"></a>
+                <h4>{{_labels.newCampusAdminTitle}}</h4>
+                <input class="name" type="text" placeholder="{{_labels.emailStudent}}" ng-model="inputEmail" ng-change='onMailChange(inputEmail)' list="mailList">
+                <datalist id='mailList'><option ng-repeat='option in usersList'>{{option.email}}</option></datalist>
+                <input class="name" type="text" placeholder="{{_labels.firstNameStudent}}" ng-model="inputFirstName">
+                <input class="name" type="text" placeholder="{{_labels.lastNameStudent}}" ng-model="inputLastName">
+
+                <div class='separator'></div>
+                <button class="pull-right" type="submit" ng-click="newAdmin(inputEmail,inputFirstName,inputLastName)">{{_labels.confirmNewStudent}}</button>
+
+        </div>
+</div>
+
+
+<div id="newAlumniModal" class="newUsrModal modalbg hide" >
+        <div class="dialog" style='width: 400px;height:190px;'>
+                <a ng-click='closeModalNewAlumni();' title="Close" class="close"></a>
+                <h4>{{_labels.newAlumniTitle}}</h4>
+                <input class="name" type="text" placeholder="{{_labels.emailStudent}}" ng-model="inputEmail" ng-change='onMailChange(inputEmail)' list="mailList">
+                <datalist id='mailList'><option ng-repeat='option in usersList'>{{option.email}}</option></datalist>
+                <input class="name" type="text" placeholder="{{_labels.firstNameStudent}}" ng-model="inputFirstName">
+                <input class="name" type="text" placeholder="{{_labels.lastNameStudent}}" ng-model="inputLastName">
+                
+                <input class="name" type="text" placeholder="{{_labels.currentOrganisation}}" ng-model="inputOrga">
+
+                <div class='separator'></div>
+                <button class="pull-right" type="submit" ng-click="newAlumni(inputEmail,inputFirstName,inputLastName,inputOrga)">{{_labels.confirmNewStudent}}</button>
+
+        </div>
+</div>

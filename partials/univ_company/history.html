@@ -1,0 +1,22 @@
+<div style="max-height: 450px; margin: auto; margin-bottom:20px;overflow-y: auto;">
+    <section class="alert alert-warning" ng-if="!history.elements">{{_labels.noHistoryToDisplay}}</section>
+    <section ng-repeat="comment in history.elements" style="margin: 10px;" class="well row border-bottom " ng-class="{'otherUser': comment.user.id!=_getSession().user}">
+        <div class="col-md-1" style="display: inline-block;margin: 5px;">
+            <img ng-src="{{_formatUser(comment.user).avatar}}" alt="" class="innerR innerB" width="50" >	
+        </div>
+        <div class="col-md-9">
+           <strong>{{_formatUser(comment.user).shortName}}</strong> {{comment.date}}
+
+            <p>
+                <span ng-if="comment.group=='1'">{{comment.content}}</span>
+                <span ng-if="comment.group=='2'">{{_labels.matchingFileReceived}}<br/>
+                    <a href="{{comment.file.url}}">
+                        <span class="fa" style="font-size: 20px;" ng-class="_getFileIconClass(comment.file)"></span>
+                        <span>{{comment.file.name | limitTo:25}}</span>
+                    </a>
+                </span>
+            </p> 
+        </div>
+        <div class="clearfix"></div>
+    </section>	  
+</div>

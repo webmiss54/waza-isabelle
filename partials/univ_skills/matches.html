@@ -1,0 +1,30 @@
+<div class="widget-body padding-none" ng-controller="AdminUnivSkillsMatches">
+
+    <input type="text" class="searchField" ng-model="searchInputF" placeholder="{{_labels.searchUser}}">
+
+    <table class="table table-vertical-center margin-none">
+            <thead>
+                    <tr>
+
+                            <th>{{_labels.lastNameStudent}}</th>
+                            <th class="center">{{_labels.offerTitle}}</th>
+                            <th class="center">{{_labels.entrepriseName}}</th>
+                            <th class="center">{{_labels.date}}</th>
+                            <th class="center">{{_labels.score}}</th>
+                            <th class="center">{{_labels.status}}</th>
+                    </tr>
+            </thead>
+            <tbody>
+                <tr class="selectable" ng-repeat="match in matches | filter:searchInputF">
+                    <td class="strong"><a href="#!/u/{{match.user.id}}">{{_formatUser(match.user).shortName}}</a></td>
+                    <td class="center">{{match.offer.title}}</td>
+                    <td class="center"><a href="#!/admin/companies/{{match.entreprise.id}}">{{match.entreprise.fullName}}</a></td>
+                    <td class="center">{{match.date}}</td>
+                    <td class="center">{{match.attachments.score.overallScore*100 | number:2}}%</td>
+
+                </tr>
+
+
+            </tbody>
+    </table>        
+</div>

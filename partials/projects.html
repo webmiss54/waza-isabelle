@@ -1,0 +1,62 @@
+<div class="clearfix">
+
+    <ul class="tab-links">
+        
+        <li><a class='active'>{{_labels.manageCampusProjects}}</a></li>
+        
+        
+        <li class="pull-right">
+            <button class="fa fa-refresh" ng-click="refresh();"></button>
+        </li>
+        
+
+    </ul>
+</div>
+
+<div class="clearfix" id="members">
+    <div>
+        <ul class="tab-links listingParams">
+                       
+            <li>
+                <span>{{_labels.orderBy}}</span>
+                <a class="dropdown-toggle" data-toggle="dropdown" href style="padding-left: 0;">
+                    {{_labels.discoverFilt[currentFilt]}}
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" style="top: 50px;width: 220px;">
+                    <li ng-repeat="order in discoverCat[0].orders"><a tabindex="-1" href ng-click="setOrder(order);">{{_labels.discoverFilt[filt]}}</a></li>
+
+                </ul>
+
+            </li>
+
+            <li>
+                <span>{{_labels.filterBy}}</span>
+                <a class="dropdown-toggle" data-toggle="dropdown" href style="padding-left: 0;">
+                    {{_getLabel(discoverType[currentType].label)}}
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" style="top: 75px;">
+                    <li ng-repeat="type in discoverType"><a tabindex="-1" href ng-click="setType(type)">{{_getLabel(type.label)}}</a></li>
+
+                </ul>
+
+            </li>
+
+
+            <li class='form-fields' style="margin-left:20px;">
+                <div class="fa fa-search"></div>
+                <span>{{_labels.search}}</span>
+                <input type="text" style="padding-left: 15px;margin-bottom: 0; display:inline-block;width:150px;" class="searchField" ng-model="searchInput" ng-keypress="_keyPress($event,'enter',refreshListing)">
+            </li>
+
+        </ul>
+    </div>
+    
+    <section ng-if="listing.length">
+        <div class="col-md-4 colMd-NoPadding" ng-repeat="project in listing | filter: searchInput" ng-include=' "partials/discover/projectElement.html"'>
+            
+        </div>
+        <div class="clearfix"></div>
+    </section>
+</div>

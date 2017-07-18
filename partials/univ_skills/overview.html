@@ -1,0 +1,41 @@
+ <div ng-controller="AdminUnivSkillsOverview" style="text-align: center;">
+
+    <div class="col-md-3 colMd-NoPadding">
+        <section class='mediumSection'>
+            <h1><span>{{campus.nbSyllabusSkills}}</span></h1>
+            <h4 >{{_labels.nbSyllabusSkills}}<span ng-if="campus.nbSyllabusSkills>1"></span></h4>
+
+        </section>
+
+    </div>
+     
+    <div class="col-md-3 colMd-NoPadding">
+        <section class='mediumSection'>
+            <h1><span>{{campus.nbSyllabusKeywords}}</span></h1>
+            <h4 >{{_labels.nbSyllabusKeywords}}<span ng-if="campus.nbSyllabusKeywords>1"></span></h4>
+
+        </section>
+
+    </div>
+     
+
+    <div class="col-md-3 colMd-NoPadding">
+        <section class='mediumSection'>
+            <h1><span>{{campus.nbUsersWithSkills}}</span> <span style="font-size: 0.5em;">({{campus.nbUsersWithSkills/campus.nbUsers*100  | number:2}}%)</span></h1>
+            <h4 >{{_labels.nbUsersWithSkills}}<span ng-if="campus.nbUsersWithSkills>1"></span></h4>
+
+        </section>
+
+    </div>
+     
+    <div class="col-md-3 colMd-NoPadding">
+        <section class='mediumSection'>
+            <h1><span>{{campus.nbMatches}}</span></h1>
+            <h4 style="height:55px;">{{_labels.nbMatchesSkills}}<span ng-if="campus.nbMatches>1">s</span></h4>
+
+        </section>
+
+    </div>
+     
+     <div class="clearfix"></div>
+ </div>

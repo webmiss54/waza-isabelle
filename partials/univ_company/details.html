@@ -1,0 +1,140 @@
+<ul class="tab-links">
+    
+    <li><a href ng-class="{'active':!currentPage || currentPage=='overview'}" ng-click="currentPage = 'overview'" >{{_labels.overview}}</a></li>
+	<li><a href ng-class="{'active':currentPage=='details'}" ng-click="currentPage = 'details'" >{{_labels.detailledView}}</a></li>
+    <li><a href ng-class="{'active':currentPage=='offers'}" ng-click="currentPage = 'offers'" >{{_labels.offer}}s</a></li>
+    <li><a href ng-class="{'active':currentPage=='contacts'}" ng-click="currentPage = 'contacts'" >{{_labels.contacts}}</a></li>
+    <li class="hide"><a href ng-class="{'active':currentPage=='history'}" ng-click="currentPage = 'history'" >{{_labels.interactionsHistory}}</a></li>
+    <li><a href ng-class="{'active':currentPage=='notes'}" ng-click="currentPage = 'notes'" >{{_labels.notes}}</a></li>
+</ul>
+<div>
+    
+	<div ng-if="currentPage=='details'" ng-include src="'partials/admin/univ_company/fullDetails.html'">
+        
+    </div>
+	
+    <div ng-if="currentPage=='offers'" ng-include src="'partials/admin/univ_company/offers.html'">
+        
+    </div>
+    
+    <div ng-if="currentPage=='contacts'" ng-include src="'partials/admin/univ_company/contacts.html'">
+        
+    </div>
+    
+    <div ng-if="currentPage=='history'" ng-include src="'partials/admin/univ_company/history.html'">
+        
+    </div>
+    
+    <div ng-if="currentPage=='notes'" ng-include src="'partials/admin/univ_company/notes.html'">
+        
+    </div>
+    
+    <div ng-if="!currentPage || currentPage=='overview'" style="overflow-y: auto;height:400px;" id='companyOverview'>
+
+        <div class="col-md-12 colMd-NoPadding" style="margin-top:30px;min-height: 150px;">
+            <section style="overflow: hidden;position: absolute;    right: 20px;    top: -20px;    padding: 5px;    min-height: auto;">
+                <img ng-src="{{company.thumbnailUrl}}" style="max-height: 175px; max-width:200px;" alt="">
+            </section>
+            <section class="sameHeight">
+                <div style="text-align: justify;">
+                    <h4>{{company.fullName}}</h4>
+
+                    <p ng-if="company.description">{{company.description}}</p>
+                    <p ng-if="!company.description">{{_labels.noDescription}}</p>
+
+                    <h5 ng-if="company.owner && company.owner.id !=_getSession().user">{{_labels.companyOwner}}:
+                        <span>{{_formatUser(company.owner).shortName}}</span>
+                    </h5>
+                    <h5 ng-if="company.owner && company.owner.id ==_getSession().user">
+                        {{_labels.companyOwnerActive}}
+                    </h5>
+
+                    <h5 ng-if="!(company.owner && company.owner.id ==_getSession().user) && company.isMember">
+                        {{_labels.companyMemberActive}}
+                    </h5>
+
+                    <div class="separator clearfix"></div>
+                    <h5 ng-if="company.fullLocation">
+                        <i class="fa fa-map-marker"></i> {{company.fullLocation}}
+                    </h5>
+
+                    <h5 ng-if="company.website">
+                        <i class="fa fa-globe"></i> <a href="{{company.website}}">{{company.website}}</a>
+                    </h5>
+
+                    <h5 ng-if="company.mainPhone">
+                        <i class="fa fa-phone"></i> {{company.mainPhone}}
+                    </h5>
+
+                    <h5 ng-if="company.mainMail">
+                        <i class="fa fa-envelope"></i> <a href="mailto:{{company.mainMail}}">{{company.mainMail}}</a>
+                    </h5>
+                </div> 
+            </section>
+        </div>
+
+        <div>
+
+            <div class="col-md-4 colMd-NoPadding">
+                <section style="height:175px;">
+                    <h2><span>{{company.nbMembers}}</span></h2>
+                    <h3 >{{_labels.nbMembers}}<span ng-if="company.nbMembers>1">s</span></h3>
+                    <div>
+                        <div class="sepator" style="background: black;    height: 2px;    width: 100px;    margin: auto;"></div>
+                        <h5>{{_labels.incommon}}: {{company.nbMembersCommonUniv}}</h5>
+
+                    </div>
+                </section>
+
+            </div>
+
+            <div class="col-md-4 colMd-NoPadding">
+                <section style="height:175px;">
+                    <h2><span>{{company.nbOffers}}</span></h2>
+                    <h3>{{_labels.offer}}<span ng-if="company.nbOffers>1">s</span></h3>
+
+                </section>
+
+            </div>
+
+
+
+            <div class="col-md-4 colMd-NoPadding">
+                <section style="height:175px;">
+                    <h2><span>{{company.nbProjects}}</span></h2>
+                    <h3>{{_labels.nbProjects}}<span ng-if="company.nbProjects>1">s</span></h3>
+                     <div class="sepator" style="background: black;    height: 2px;    width: 100px;    margin: auto;"></div>
+                    <h5>{{_labels.incommon}}: {{company.nbProjectsCommonUniv}}</h5>
+                    
+                </section>
+            </div>
+
+            <div class="col-md-4 colMd-NoPadding">
+                <section>
+                    <h2><span ng-if="company.nbViews">{{company.nbViews}}</h2>
+                    <h3>{{_labels.nbViews}}<span ng-if="company.nbViews>1">s</span></h3>
+
+                </section>
+            </div>
+
+            <div class="col-md-4 colMd-NoPadding">
+                <section>
+                    <h2><span>{{company.nbMatches}}</span></h2>
+                    <h3>{{_labels.nbMatches}}<span ng-if="company.nbMatches>1">s</span></h3>
+
+                </section>
+            </div>
+
+            <div class="col-md-4 colMd-NoPadding">
+                <section>
+                    <h2><span>{{company.nbContacts}}</span></h2>
+                    <h3>{{_labels.nbContacts}}<span ng-if="company.nbContacts>1">s</span></h3>
+
+                </section>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+

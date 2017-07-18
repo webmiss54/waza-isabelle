@@ -1,0 +1,74 @@
+<div ng-controller="AdminCompaniesDetailsCtrl">
+    
+	<button style="    position: absolute;    right: 20px;    top: 15px;" ng-click="showNewField();">{{_labels.newFieldBtn}}</button>
+	
+	<div style="height:470px; overflow-y:auto;text-transform:initial;">
+	
+		<div class="well" ng-if='newField'>
+			<label>{{_labels.newFieldLabel}}</label>
+			<input ng-model="newField.label" style="width:100%;"></input>
+			
+			<label>{{_labels.newFieldValue}}</label>
+			<input ng-model="newField.value" style="width:100%;"></input>
+			
+			<div style="font-size:0.9em;">
+				<span><i class="fa fa-eye"></i>{{_labels.visibility}}</span>
+				<select ng-model="newField.visibility" style="display:inline-block;">
+					<option value="0" title="{{_labels.publicFieldTooltip}}">{{_labels.articleVisibilityList.public}}</option>
+					<option value="1" title="{{_labels.myselfFieldTooltip}}">{{_labels.myself}}</option>
+					<option value="2" title="{{_labels.myCampusFieldTooltip}}">{{_labels.isMainCampus}}</option>
+				</select>
+				<span>
+					<span ng-if="newField.visibility==0">{{_labels.publicFieldTooltip}}</span>
+					<span ng-if="newField.visibility==1">{{_labels.myselfFieldTooltip}}</span>
+					<span ng-if="newField.visibility==2">{{_labels.myCampusFieldTooltip}}</span>
+				</span>
+			</div>
+			
+			<button class="pull-right" ng-click="submitNewField();">{{_labels.addBtn}}</button>
+			<button class="pull-right" ng-click="hideNewField();">{{_labels.cancelBtn}}</button>
+			<div class="clearfix"></div>
+		</div>
+
+		 <section ng-repeat="(key, val) in metas" class="hoverableContent">
+			 <div class="hoverable pull-right">
+				<span ng-if="val[0].custom" class="label label-warning">
+					<span ng-if="val[0].visibility==0"><i class="fa fa-unlock"></i> {{_labels.articleVisibilityList.public}}</span>
+					<span ng-if="val[0].visibility==1"><i class="fa fa-lock"></i> {{_labels.myself}}</span>
+					 
+					<span ng-if="val[0].visibility==2"><i class="fa fa-unlock-alt"></i> {{_labels.isMainCampus}}</span>
+					$
+				</span>
+				<button ng-click="setCurrentElement(key)" ng-if="currentElement!=key" style="margin-left: 5px;"><i class="fa fa-edit"></i> {{_labels.editMode}}</button>
+			 </div>
+			 <label>{{val[0].label}}: </label> 
+			 <p ng-if="currentElement!=key" style="background: #eee;    margin-top: 5px;">{{val[0].value}}</p>
+			 <div ng-if="currentElement==key">
+				<input ng-model="val[0].value" style="width:100%;"></input>
+				<div style="font-size:0.9em;">
+					<span><i class="fa fa-eye"></i>{{_labels.visibility}}</span>
+					<select ng-model="val[0].visibility" style="display:inline-block;">
+						<option value="0" title="{{_labels.publicFieldTooltip}}">{{_labels.articleVisibilityList.public}}</option>
+						<option value="1" title="{{_labels.myselfFieldTooltip}}">{{_labels.myself}}</option>
+						<option value="2" title="{{_labels.myCampusFieldTooltip}}">{{_labels.isMainCampus}}</option>
+					</select>
+					<span>
+						<span ng-if="val[0].visibility==0">{{_labels.publicFieldTooltip}}</span>
+						<span ng-if="val[0].visibility==1">{{_labels.myselfFieldTooltip}}</span>
+						<span ng-if="val[0].visibility==2">{{_labels.myCampusFieldTooltip}}</span>
+					</span>
+				</div>
+				
+				
+				<div class="separator"></div>
+				<div class="pull-right">
+					<button ng-click="setField(val[0]);">{{_labels.editMode}}</button>
+					<button ng-click="setCurrentElement(null)">{{_labels.cancelBtn}}</button>
+					<button ng-click="deleteField(val[0]);"><i class="fa fa-trash"></i> {{_labels.deleteMode}}</button>
+				</div>
+				<div class="clearfix"></div>
+				
+			 </div>
+		 </section>
+		 </div>
+ </div>

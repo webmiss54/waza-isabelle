@@ -1,0 +1,58 @@
+<a class="dropdown-toggle" data-toggle="dropdown" href style="padding-left: 0;">
+                                                
+	<span ng-if="_getCurrentSection('',false,1)=='admin'" class="highlightColor">
+		<span ng-if="_getCurrentSection('',false,2)=='infos'"><span class="fa fa-gear" style="width: auto;"></span> {{_labels.manageCampusInfo | uppercase}}</span>
+		<span ng-if="_getCurrentSection('',false,2)=='communication'"><span class="fa fa-bullhorn" style="width: auto;"></span> {{_labels.manageCampusCommunication | uppercase}}</span>
+		<span ng-if="_getCurrentSection('',false,2)=='courses'"><span class="fa fa-folder" style="width: auto;"></span> {{_labels.manageCampusCourses | uppercase}}</span>
+		<span ng-if="_getCurrentSection('',false,2)=='users'"><span class="fa fa-users" style="width: auto;"></span> {{_labels.manageCampusUsers | uppercase}}</span>
+		<span ng-if="_getCurrentSection('',false,2)=='companies'"><span class="fa fa-briefcase" style="width: auto;"></span> {{_labels.manageCampusCompanies | uppercase}}</span>
+		<span ng-if="_getCurrentSection('',false,2)=='skills'"><span class="fa fa-gear" style="width: auto;"></span> {{_labels.manageCampusSkills | uppercase}}</span>
+		<span ng-if="_getCurrentSection('',false,2)=='offers'"><span class="fa fa-archive" style="width: auto;"></span> {{_labels.manageCampusOffers | uppercase}}</span>
+		<span ng-if="_getCurrentSection('',false,2)=='projects'"><span class="fa fa-star" style="width: auto;"></span> {{_labels.manageCampusProjects | uppercase}}</span>
+		<span ng-if="_getCurrentSection('',false,2)=='events'"><span class="fa fa-calendar" style="width: auto;"></span> {{_labels.manageCampusEvents | uppercase}}</span>
+		
+	</span>
+	<span  ng-if="_getCurrentSection('',false,1)=='admin'" class="caret"></span>
+</a>
+<ul class="dropdown-menu" style='width: 250px;'>
+	<li>
+		<a href ng-click="_setLocation('admin/infos');" style='color:inherit'>
+		   <span class="fa fa-gear" style="width: auto;"></span> 
+		   <span>{{_labels.manageCampusInfo | uppercase}}</span>
+		</a>
+		<a href ng-click="_setLocation('admin/communication');" style='color:inherit'>
+		   <span class="fa fa-bullhorn" style="width: auto;"></span> 
+		   <span>{{_labels.manageCampusCommunication | uppercase}}</span>
+		</a>
+		<a href ng-click="_setLocation('admin/courses');" style='color:inherit'>
+		   <span class="fa fa-folder" style="width: auto;"></span> 
+		   <span>{{_labels.manageCampusCourses | uppercase}}</span>
+		</a>
+		<a href ng-click="_setLocation('admin/users');" style='color:inherit'>
+		   <span class="fa fa-users" style="width: auto;"></span> 
+		   <span>{{_labels.manageCampusUsers | uppercase}}</span>
+		</a>
+		<a href ng-click="_setLocation('admin/companies');" style='color:inherit'>
+		   <span class="fa fa-briefcase" style="width: auto;"></span> 
+		   <span>{{_labels.manageCampusCompanies | uppercase}}</span>
+		</a>
+		<a href ng-click="_setLocation('admin/projects');" style='color:inherit'>
+		   <span class="fa fa-cubes" style="width: auto;"></span> 
+		   <span>{{_labels.manageCampusProjects | uppercase}}</span>
+		</a>
+		
+		<a href ng-click="_setLocation('admin/offers');" style='color:inherit'>
+		   <span class="fa fa-archive" style="width: auto;"></span> 
+		   <span>{{_labels.manageCampusOffers | uppercase}}</span>
+		</a>
+		<a href ng-click="_setLocation('admin/skills');" style='color:inherit'>
+		   <span class="fa fa-star" style="width: auto;"></span> 
+		   <span>{{_labels.manageCampusSkills | uppercase}}</span>
+		</a>
+		
+		<a href ng-click="_setLocation('admin/events');" style='color:inherit'>
+		   <span class="fa fa-calendar" style="width: auto;"></span> 
+		   <span>{{_labels.manageCampusEvents | uppercase}}</span>
+		</a>
+	</li>	
+</ul>

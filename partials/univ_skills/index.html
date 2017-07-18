@@ -1,0 +1,35 @@
+<div class="clearfix">
+
+    <ul class="tab-links">
+        
+        <li><a href ng-click="currentScreen='overview'" ng-class="{'active':currentScreen=='overview'}">{{_labels.overview}}</a></li>
+        <li><a href ng-click="currentScreen='matches'" ng-class="{'active':currentScreen=='matches'}">{{_labels.matches}}</a></li>
+        <li><a href ng-click="currentScreen='students'" ng-class="{'active':currentScreen=='students'}">{{_labels.students}}</a></li>
+        <li><a href ng-click="currentScreen='offers'" ng-class="{'active':currentScreen=='offers'}">{{_labels.offer}}s</a></li>
+        <li><a href ng-click="currentScreen='courses'" ng-class="{'active':currentScreen=='courses'}">{{_labels.courses}}</a></li>
+
+       
+    </ul>
+</div>
+
+<section ng-if="currentScreen=='overview'" ng-include src=" 'partials/admin/univ_skills/overview.html'">
+    
+</section>
+
+<section ng-if="currentScreen=='matches'" ng-include src=" 'partials/admin/univ_skills/matches.html'">
+    
+</section>
+
+<section ng-if="currentScreen=='students'" ng-include src=" 'partials/admin/univ_skills/students.html'">
+    
+</section>
+
+<section ng-if="currentScreen=='offers'" ng-include src=" 'partials/admin/univ_skills/offers.html'">
+    
+</section>
+
+<section ng-if="currentScreen=='courses'" ng-include src=" 'partials/admin/univ_skills/courses.html'">
+    
+</section>
+
+

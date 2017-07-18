@@ -1,0 +1,159 @@
+<div class="clearfix">
+
+    <ul class="tab-links">
+        
+        <li><a href ng-click="currentScreen='partner'" ng-class="{'active':currentScreen=='partner'}">{{_labels.partnerCompany}}</a></li>
+        <li class="hide"><a href ng-click="currentScreen='favourite'" ng-class="{'active':currentScreen=='favourite'}">{{_labels.favouriteCompany}}</a></li>
+        <li class="hide"><a href ng-click="currentScreen='recommended'" ng-class="{'active':currentScreen=='recommended'}">{{_labels.recommendedCompany}}</a></li>
+       
+        
+        <li class="pull-right">
+            <button ng-click="openModalNewCompany();" ng-if="currentScreen!='recommended'">{{_labels.companyAddBtn}}</button>
+            
+            <button class="fa fa-sort-amount-desc " ng-click="openModalCompanySort();"> {{_labels.sortBtn}}</button>
+            <button class="fa fa-list" ng-click="openModalCompanyFilter();"> {{_labels.filterBtn}}</button>
+            <button class="fa fa-refresh" ng-click="refresh();"></button>
+            
+        </li>
+        
+
+    </ul>
+</div>
+
+
+
+
+<div id="membersList">
+    <div class="universityUsers">
+        <div>
+            <input type="text" class="searchField" ng-model="searchInput" placeholder="{{_labels.searchCompany}}">
+
+            <div>
+                <section class="pointerOn" ng-click="_setLocation('admin','companies',company.id)" ng-repeat="company in currentList()| filter:searchInput"  style="padding-top: 10px;">
+                    <div style='height:80px;'><img ng-src="{{company.thumbnailUrl}}" alt="" style="margin-bottom:5px;"></div>
+                    <p>{{company.fullName}}</p>
+                        
+                </section>
+            </div>	
+        </div>
+    </div>
+</div>
+
+<div id="companyDetailsModal" class="modalbg hide" >
+    <div class="dialog" style='width: 800px;height:520px;top:50px'>
+            <a ng-click='closeModalCompanyDetails();' title="Close" class="close"></a>
+            <h4>{{entreprise.fullName}}</h4>
+
+            <div ng-include src=" 'partials/admin/univ_company/details.html'"></div>
+
+    </div>
+</div>
+
+<div id="newCompanyModal" class="modalbg hide" >
+    <div class="dialog" style='width: 400px;height:100px;'>
+            <a ng-click='closeModalNewCompany();' title="Close" class="close"></a>
+            <h4>{{_labels.newCompanyTitle}}</h4>
+
+            <input class="name" style='width:100%' type="text" placeholder="{{_labels.companyName}}" ng-model="inputCompany" ng-change='onInputChange(inputCompany)'list="companyList">
+            <datalist id='companyList'><option ng-repeat='option in companyList'>{{option.fullName}}</option></datalist>
+            
+            <div class='separator'></div>
+            <button class="pull-right" type="submit" ng-click="newCompany(inputCompany)">{{_labels.confirmNewStudent}}</button>
+
+    </div>
+</div>
+
+
+<div id="sortCompanyModal" class="modalbg hide" >
+    <div class="dialog" style='width: 500px;height:355px;'>
+            <a ng-click='closeModalCompanySort();' title="Close" class="close"></a>
+            <h4>{{_labels.SortEntreprisesTitle}}</h4>
+            <div>
+                <div>
+                    <section>
+					
+						<label><input type="radio" ng-model="sort.type" value="date"> {{_labels.dateAdded}}</label><br/>
+                        <label><input type="radio" ng-model="sort.type" value="name"> {{_labels.companyName}}</label><br/>
+                        <label><input type="radio" ng-model="sort.type" value="nbOffers"> {{_labels.nbOffersSort}}</label><br/>
+						<label><input type="radio" ng-model="sort.type" value="nbMatches"> {{_labels.nbMatchesSort}}</label><br/>
+						<label><input type="radio" ng-model="sort.type" value="nbAlumni"> {{_labels.nbAlumniSort}}</label><br/>
+						<label><input type="radio" ng-model="sort.type" value="nbInterns"> {{_labels.nbInternsSort}}</label><br/>
+						<label><input type="radio" ng-model="sort.type" value="location"> {{_labels.location}}</label><br/>
+
+                        
+                    </section>
+					
+					<section class="hide">
+					
+						<label><input type="radio" ng-model="sort.date" value="year"> {{_labels.thisAcademicYear}}</label><br/>
+						<label><input type="radio" ng-model="sort.date" value="all"> {{_labels.allTime}}</label><br/>
+						
+                    </section>
+					
+					<section>
+					
+						<label><input type="radio" ng-model="sort.order" value="desc"> {{_labels.descendant}}</label><br/>
+						<label><input type="radio" ng-model="sort.order" value="asc"> {{_labels.ascendant}}</label><br/>
+						
+                    </section>
+					
+                </div>
+                <div class="col-md-6 hide">
+                    <section>
+                        <p>{{_labels.listEntreprisesHelp}}</p>
+                    </section>
+                </div>
+            </div>
+            
+            
+            <button class="pull-right" type="submit" ng-click="sortCompanies()">{{_labels.sortBtn}}</button>
+
+    </div>
+</div>
+
+<div id="filterCompanyModal" class="modalbg hide" >
+    <div class="dialog" style='width: 800px;height:500px;'>
+            <a ng-click='closeModalCompanyFilter();' title="Close" class="close"></a>
+            <h4>{{_labels.filterEntreprisesTitle}}</h4>
+            <div>
+                <div>
+                    <section>
+                        <p>{{_labels.filterEntreprisesHelp}}</p>
+                        <br/>
+
+                        <label>{{_labels.companyName}}</label>
+                        <input class="name" style='width:100%' type="text" ng-model="filters.name">
+
+                        <label>{{_labels.location}}</label>
+                        <input class="name" style='width:100%' type="text" ng-model="filters.location">
+
+                        <label>{{_labels.projectKeywords}}</label>
+                        <input class="name" style='width:100%' type="text" ng-model="filters.keywords">
+
+                        <label>{{_labels.nbOffersFilter}}</label>
+                        <input class="name" style='width:100%' type="text" ng-model="filters.nbOffers">
+
+                        <label>{{_labels.nbMatchesFilter}}</label>
+                        <input class="name" style='width:100%' type="text" ng-model="filters.nbMatches">
+
+                        <label>{{_labels.nbAlumniFilter}}</label>
+                        <input class="name" style='width:100%' type="text" ng-model="filters.nbAlumni">
+
+                        <label>{{_labels.nbInternsFilter}}</label>
+                        <input class="name" style='width:100%' type="text" ng-model="filters.nbInterns">
+
+                        <div class='separator'></div>
+                    </section>
+                </div>
+                <div class="col-md-6 hide">
+                    <section>
+                        <p>{{_labels.listEntreprisesHelp}}</p>
+                    </section>
+                </div>
+            </div>
+            
+            
+            <button class="pull-right" type="submit" ng-click="filterCompanies()">{{_labels.filterBtn}}</button>
+
+    </div>
+</div>

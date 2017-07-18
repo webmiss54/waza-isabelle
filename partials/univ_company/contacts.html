@@ -1,0 +1,39 @@
+<div ng-controller="UnivCompanyContacts" ng-init="currentSection='listContacts'">
+    
+    <button style="top: 18px;    position: absolute;    right: 15px;" ng-show="currentSection=='listContacts'" ng-click="currentSection='newContact'">{{_labels.addContactBtn}}</button>
+    <button style="top: 18px;    position: absolute;    right: 15px;" ng-show="currentSection=='newContact'" ng-click="currentSection='listContacts'">{{_labels.back2Contacts}}</button>
+    
+    <div ng-show="currentSection=='newContact'" style="margin:10px;">
+        <h5>{{_labels.addContactBtn}}</h5>
+        <div ng-include src=" 'partials/projects/contacts/editForm.html'" style="margin-bottom: 5px;    padding-right: 15px;    max-height: 400px;   overflow-y: auto;    overflow-x: hidden;    margin-left: 10px;"></div>
+        <button class="pull-right" ng-click="addContact()">{{_labels.addBtn}}</button>
+    </div>
+    <div ng-show="currentSection=='listContacts'">
+        <div class="alert alert-warning" ng-if="!contacts.elements.length">{{_labels.noContactToDisplay}}</div>
+        <input type="text" ng-if="contacts.elements.length" class="searchField" style='    display: inline-block;        margin-bottom: 0;margin-right: 10px;' ng-model="searchInput" placeholder="{{_labels.searchContact}}">
+    
+        <div class="col-md-4 colMd-NoPadding" ng-repeat="item in contacts.elements | filter:searchInput">
+            <section style="min-height: 80px;">
+                <div class="important" title="{{item.description}}">
+                    <a >
+                        <span class='strong'>{{item.firstName[0]| uppercase}}{{item.firstName.substr(1)}}  {{item.lastName | uppercase}}</span>
+                    </a>
+                </div>
+
+                
+                <div ng-if="item.params.organization"><i class="fa fa-building"></i> {{item.params.organization}}</div>
+
+                <div>
+                    <p><i class="fa fa-phone"></i> {{item.params.mainPhone}}</p>
+                    <p><i class="fa fa-envelope"></i> {{item.params.mainEmail}}</p>
+                </div>
+                <div class="separator"></div>
+                <div style="bottom: 20px;    position: absolute;    right: 30px;">
+                        <span class="label">{{_labels.contactsFields.statusValues[item.status]}}</span>
+                </div>
+                <div class="clearfix"></div>
+            </section>
+        </div>
+
+    </div>
+</div>

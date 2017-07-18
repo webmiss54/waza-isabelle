@@ -1,0 +1,11 @@
+<div class="clearfix">
+
+    <ul class="tab-links">
+        
+        <li><a class="active">{{_labels.manageCampusCourses}}</a></li>
+        
+    </ul>
+</div>
+
+
+<div ng-include="'partials/univ/courses.html'" ng-controller="CampusCoursesCtrl" ng-if="campus" ng-init="noHeader=true;univName=campus.name;basePath='admin/courses';getUniversityDetails()"></div>
