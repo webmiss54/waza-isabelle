@@ -14,6 +14,16 @@ root.controller('AdminUsersCtrl' ,['$scope','$http', function($scope,$http) {
     $scope.currentUser = null;
     $scope.currentScreen='admins';
 
+	$scope._labels ={
+		adminPlan: 'adminPlan',
+		studentPlan: 'studentPlan',
+		tutorPlan: 'tutorPlan',
+		alumni: 'alumni',
+        memberAddBtn: 'memberAddBtn'
+	}
+
+    $scope._getSession = function() { return {}}
+
 
     $scope.currentList = function(){
        
@@ -25,7 +35,26 @@ root.controller('AdminUsersCtrl' ,['$scope','$http', function($scope,$http) {
                 
         }
     }
+
+    $scope.listStudents =
+    $scope.listAdmins = 
+    $scope.listTutors = 
+    $scope.listAlumni=
+    [
+        {
+        avatar : 'http://via.placeholder.com/350x150',
+        shortName: 'John Doe'
+    },
+    {
+        avatar : 'http://via.placeholder.com/350x150',
+        shortName: 'Jane Doe'
+        }
+    ]
+
+    $scope._formatUser = function(u) {return u}
     
+    
+
     $scope.refresh = function(){
         $scope.fetchAdmins();
         $scope.fetchStudents();
@@ -285,6 +314,6 @@ root.controller('AdminUsersCtrl' ,['$scope','$http', function($scope,$http) {
         });
     }
     
-    $scope.init();
+   // $scope.init();
         
 }]);
