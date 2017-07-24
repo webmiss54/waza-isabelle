@@ -19,7 +19,11 @@ root.controller('AdminUsersCtrl' ,['$scope','$http', function($scope,$http) {
 		studentPlan: 'studentPlan',
 		tutorPlan: 'tutorPlan',
 		alumni: 'alumni',
-        memberAddBtn: 'memberAddBtn'
+        memberAddBtn: 'memberAddBtn',
+        memberDelBtn: 'memberDelBtn',
+        confirmNewStudent:'confirm',
+        confirmEditStudent:'confirm',
+        memberEditBtn: 'memberEditBtn'
 	}
 
     $scope._getSession = function() { return {}}
@@ -169,6 +173,21 @@ root.controller('AdminUsersCtrl' ,['$scope','$http', function($scope,$http) {
         $scope.addManagerPanel = false;
         $("#newManagerModal").hide()
     }
+    
+    $scope.deleteStudent = function(){        
+    alert("Veuillez confirmer la suppression");
+
+    var txt;
+    var r = confirm("Etes vous certain de vouloir supprimer ?!");
+    if (r == true) {
+        txt = "Suppression confirmée !";
+    } else {
+        txt = "Suppression abandonnée !";
+    }
+    document.getElementById("demo").innerHTML = txt;
+    } 
+
+
 
     $scope.fetchStudents = function(){
 
@@ -256,6 +275,17 @@ root.controller('AdminUsersCtrl' ,['$scope','$http', function($scope,$http) {
         $scope.addStudentPanel=true;$scope.detailsStudentPanel=false;
         $("#newStudentModal").removeClass("hide")
         $("#newStudentModal").show()
+    }
+
+    $scope.openModalEditStudent = function(){
+        $scope.editStudentPanel=true;$scope.detailsStudentPanel=false;
+        $("#editStudentModal").removeClass("hide")
+        $("#editStudentModal").show()
+    }
+
+    $scope.closeModalEditStudent = function(){
+        $scope.editStudentPanel = false;
+        $("#editStudentModal").hide()
     }
 
     $scope.closeModalNewStudent = function(){

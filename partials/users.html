@@ -9,10 +9,12 @@
         
         <li class="pull-right">
             <button ng-click="openModalNewStudent();" ng-show="currentScreen=='students'">{{_labels.memberAddBtn}}</button>
+             <button ng-click="openModalEditStudent();" ng-show="currentUser">{{_labels.memberEditBtn}}</button>
+             <button ng-click="deleteStudent();" ng-show="currentScreen=='students'">{{_labels.memberDelBtn}}</button><p id="demo"></p>
             <button ng-click="openModalNewManager();" ng-show="currentScreen=='tutors'">{{_labels.memberAddBtn}}</button>
             <button ng-click="openModalNewAdmin();" ng-show="currentScreen=='admins'">{{_labels.memberAddBtn}}</button>
-            <button ng-click="openModalNewAlumni();" ng-show="currentScreen=='alumni'">{{_labels.memberAddBtn}}</button>
-            
+            <button ng-click="openModalNewAlumni(); " ng-show="currentScreen=='alumni'">{{_labels.memberAddBtn}}</button>
+           
             <button class="fa fa-refresh" ng-click="refresh();"></button>
             
         </li>
@@ -20,7 +22,7 @@
 
     </ul>
 </div>
-
+<div class="alert" ng-class="maClasse">{{message}}</div>
 <div id="membersList">
     <div class="universityUsers">
         <div>
@@ -49,11 +51,26 @@
 
                 <div class='separator'></div>
                 <button class="pull-right" type="submit" ng-click="newStudent(inputEmail,inputFirstName,inputLastName)">{{_labels.confirmNewStudent}}</button>
+           
 
         </div>
 </div>
 
+<div id="editStudentModal" class="editUsrModal modalbg hide" >
+        <div class="dialog" style='width: 400px;height:170px;'>
+                <a ng-click='closeModalEditStudent();' title="Close" class="close">x</a>
+                <h4>{{_labels.editStudentTitle}}</h4>
+                <input class="name" type="text" placeholder="{{_labels.emailStudent}}" ng-model="inputEmail" ng-change='onMailChange(inputEmail)' list="mailList">
+                <datalist id='mailList'><option ng-repeat='option in usersList'>{{option.email}}</option></datalist>
+                <input class="name" type="text" placeholder="{{_labels.firstNameStudent}}" ng-model="inputFirstName">
+                <input class="name" type="text" placeholder="{{_labels.lastNameStudent}}" ng-model="inputLastName">
 
+                <div class='separator'></div>
+                <button class="pull-right" type="submit" ng-click="closeModalEditStudent()">{{_labels.confirmeditStudent}}</button>
+           
+
+        </div>
+</div>
 
 <div id="newManagerModal" class="newUsrModal modalbg hide" >
         <div class="dialog" style='width: 400px;height:200px;'>
@@ -84,7 +101,7 @@
 
                 <div class='separator'></div>
                 <button class="pull-right" type="submit" ng-click="newAdmin(inputEmail,inputFirstName,inputLastName)">{{_labels.confirmNewStudent}}</button>
-
+                  <button class="pull-right" type="submit" ng-click="newAdmin(deleteStudent)">{{_labels.deleteStudent}}</button>
         </div>
 </div>
 
